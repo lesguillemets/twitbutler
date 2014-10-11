@@ -1,0 +1,8 @@
+venv
+*.pyc
+staticfiles
+.env
+__pycache__/
+.*.sw[opqr]
+consts.py
+modules/
