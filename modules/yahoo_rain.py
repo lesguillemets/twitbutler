@@ -3,6 +3,7 @@ import urllib.request as req
 from urllib.parse import quote
 import json
 from .yahoo_geo import geocode
+import os
 try:
     from .consts import yahoo_info
 except ImportError as e:
