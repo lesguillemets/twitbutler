@@ -16,8 +16,8 @@ import os
 try:
     import consts
 except ImportError as e:
-    consts = {
-        'keys' : {
+    class consts(object):
+        keys = {
             'app' : {
                 'api_key' : os.environ['twitter_api_key'],
                 'api_secret' : os.environ['twitter_api_secret'],
@@ -29,7 +29,6 @@ except ImportError as e:
                 ),
             },
         }
-    }
 
 
 verb = False
