@@ -1,0 +1,58 @@
+dl.commands>dt{
+    font-family: "Fantasque Sans Mono", "Ubuntu Mono", "Source Code Pro", Monaco, monospace;
+    font-size:130%;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+dd {
+    margin-top:4px;
+    margin-bottom:4px;
+}
+
+dd::before{
+    font-weight:bold;
+}
+
+dd.command {
+    background-color: #eee;
+    font-size:120%;
+    font-family: "Fantasque Sans Mono", "Ubuntu Mono", "Source Code Pro", Monaco, monospace;
+}
+
+dd.command::before{
+    content:"Usage: ";
+    background-color: #fff;
+    font-family: sans-serif;
+    padding-right:10px;
+    margin-right:4px;
+}
+
+dd.response {
+    background-color: #eee;
+    font-family: "Fantasque Sans Mono", "Ubuntu Mono", "Source Code Pro", Monaco, monospace;
+}
+
+dd.response::before{
+    content: "Response: ";
+    background-color: #fff;
+    font-family: sans-serif;
+    padding-right:10px;
+    margin-right:4px;
+}
+
+dd.arguments::before{
+    content: "引数: "
+}
+
+dd.descr {
+}
+
+dd.descr::before{
+    content: "Description:\A";
+    display:block;
+}
+
+dd.power::before{
+    content: "Powered by: "
+}

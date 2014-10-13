@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Twitbutler -- commands</title>
+</head>
+<link rel="stylesheet" href="./css/commands.css">
+<body>
+  Twitbutler は現在以下のコマンドに反応します．
+  <dl class="commands">
+    <dt>ping</dt>
+    <dd class="command">!ping</dd>
+    <dd class="arguments">なし</dd>
+    <dd class="response">pong (+32423)</dd>
+    <dd class="descr">ふつうの <code>ping</code>.
+      連投規制を避けるため時刻に応じた5桁の数字を加えて返します．</dd>
+    
+    <dt>time</dt>
+    <dd class="command">!time</dd>
+    <dd class="arguments">なし</dd>
+    <dd class="response">2014-09-14 08:29:14 UTC / 1410683354.691493 secs since the epoc</dd>
+    <dd class="descr">現在時刻を UTC と epoc time で返します．</dd>
+    
+    <dt>help</dt>
+    <dd class="command">!help [command]</dd>
+    <dd class="arguments">help を見たいコマンド (optional)</dd>
+    <dd class="descr">
+      引数が与えられればその command の help を返し，
+      引数が無いときは出来る範囲でコマンド一覧を出力します．
+    </dd>
+    
+    <dt>weather</dt>
+    <dd class="command">!weather (city)</dd>
+    <dd class="arguments">
+      <a href="https://gist.github.com/lesguillemets/f52c57cb19bf25833f3a">ここ</a>
+      に上がっている都市名のいずれか（1つのみ）．
+    </dd>
+    <dd class="response">
+      京都:本日(2014-09-15) --- 曇り，29°C / (-)°C,
+      明日(2014-09-16) --- 曇時々晴，30°C / 19°C
+    </dd>
+    <dd class="descr">
+      本日と翌日の天気予報を返します．天気，最高気温，最低気温の順で，
+      予報に含まれない値は <code>(-)</code> となります．
+      都市名として指定できるのは1つのみで，空白スペースを区切りとして
+      以降は無視されます．
+    </dd>
+    <dd class="power">
+      <a href="http://www.tenki.jp/">日本気象協会</a> via
+      <a href="http://weather.livedoor.com/weather_hacks/">
+        weather hacks
+      </a> by livedoor
+    </dd>
+    
+    <dt>rain</dt>
+    <dd class="command">!rain (location) [..]</dd>
+    <dd class="arguments">
+      Yahoo! ジオコーダAPI に渡される，住所を表す文字列
+    </dd>
+    <dd class="response">
+      1910 現在の10分間降雨量: 10.5mm (京都府京都市左京区) [95433]
+    </dd>
+    <dd class="descr">
+      住所を受け取り，その場所の直近の10分間降雨量を返します．
+      括弧にくくられて返ってくる住所は，
+      このコマンドが与えられた文字列を解釈した結果，
+      角括弧 ([]) 内の5桁の数字は連投規制を避けるためのランダム文字列です．
+      <br />
+      住所の指定は Yahoo! ジオコーダに渡されるため，
+      例えば「京都府京都市」，「京都」，「左京区」などの指定が可能です．
+      解釈できない文字列を渡された場合はその旨返答します．
+      <br />
+      また，ユーザ側の連投規制を回避できるよう，
+      末尾の任意個の <code>.</code> (半角ピリオド）は無視されます．
+    </dd>
+    <dd class="power">
+      <a href="http://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/geocoder.html">Yahoo! ジオコーダAPI</a>,
+      <a href="http://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/weather.html">気象情報API</a>. いずれも <span style="margin:15px 15px 15px 15px"><a href="http://developer.yahoo.co.jp/about">Web Services by Yahoo! JAPAN</a></span>.
+    </dd>
+    
+    <dt>factorize</dt>
+    <dd class="command">!factorize (integer)</dd>
+    <dd class="arguments">
+      素因数分解すべき整数 (/=0) 1つ
+    </dd>
+    <dd class="response">
+      3^3*19^1*31^1*895008071^1
+    </dd>
+    <dd class="descr">
+      与えられた整数を素因数分解します．
+      現在100万以下の素数で試し割りを行って答えを返します．
+    </dd>
+  </dl>
+</body>
+</html>
