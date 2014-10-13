@@ -109,6 +109,11 @@ def parse_command(data):
         return None
     
     if is_cmd:
+        if command.startswith("__") and command.endswith("__"):
+            # Commands.__something__(data) ?
+            # That counld be Commands.__delattr__, etc.
+            # Well, although it's unlikely to cause any problems...
+            return None
         if hasattr(Commands, command):
             log('hasattr!')
             return (getattr(Commands,command)(data))
