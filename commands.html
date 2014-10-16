@@ -8,20 +8,20 @@
 <body>
   Twitbutler は現在以下のコマンドに反応します．
   <dl class="commands">
-    <dt>ping</dt>
+    <dt id="ping">ping</dt>
     <dd class="command">!ping</dd>
     <dd class="arguments">なし</dd>
     <dd class="response">pong (+32423)</dd>
     <dd class="descr">ふつうの <code>ping</code>.
       連投規制を避けるため時刻に応じた5桁の数字を加えて返します．</dd>
     
-    <dt>time</dt>
+    <dt id="time">time</dt>
     <dd class="command">!time</dd>
     <dd class="arguments">なし</dd>
     <dd class="response">2014-09-14 08:29:14 UTC / 1410683354.691493 secs since the epoc</dd>
     <dd class="descr">現在時刻を UTC と epoc time で返します．</dd>
     
-    <dt>help</dt>
+    <dt id="help">help</dt>
     <dd class="command">!help [command]</dd>
     <dd class="arguments">help を見たいコマンド (optional)</dd>
     <dd class="descr">
@@ -29,7 +29,7 @@
       引数が無いときは出来る範囲でコマンド一覧を出力します．
     </dd>
     
-    <dt>weather</dt>
+    <dt id="weather">weather</dt>
     <dd class="command">!weather (city)</dd>
     <dd class="arguments">
       <a href="https://gist.github.com/lesguillemets/f52c57cb19bf25833f3a">ここ</a>
@@ -52,7 +52,7 @@
       </a> by livedoor
     </dd>
     
-    <dt>rain</dt>
+    <dt id="rain">rain</dt>
     <dd class="command">!rain (location) [..]</dd>
     <dd class="arguments">
       Yahoo! ジオコーダAPI に渡される，住所を表す文字列
@@ -78,7 +78,7 @@
       <a href="http://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/weather.html">気象情報API</a>. いずれも <span style="margin:15px 15px 15px 15px"><a href="http://developer.yahoo.co.jp/about">Web Services by Yahoo! JAPAN</a></span>.
     </dd>
     
-    <dt>factorize</dt>
+    <dt id="factorize">factorize</dt>
     <dd class="command">!factorize (integer)</dd>
     <dd class="arguments">
       素因数分解すべき整数 (/=0) 1つ
@@ -91,7 +91,7 @@
       現在100万以下の素数で試し割りを行って答えを返します．
     </dd>
     
-    <dt>rgb</dt>
+    <dt id="rgb">rgb</dt>
     <dd class="command">!rgb (r g b)</dd>
     <dd class="arguments">
       r,g,b の値（それぞれ 0 &leq; x &leq; 255, 半角スペース区切り）
