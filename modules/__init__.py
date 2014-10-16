@@ -5,4 +5,5 @@ __all__ = [
     'yahoo_rain',
     'yahoo_geo',
     'colorpics',
+    'fractals',
 ]

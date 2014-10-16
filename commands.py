@@ -5,6 +5,7 @@ import modules.weather as wt
 import modules.yahoo_rain as yahoo_rain
 import modules.primes as primes
 import modules.colorpics as colorpics
+import modules.fractals as frct
 
 
 class Commands(object):
@@ -175,6 +176,51 @@ class MediaCommands(object):
             "color : rgb {},{},{}".format(r,g,b),
             imgf
         )
+    
+    @staticmethod
+    def julia(data: "twdata") -> "Left String, RIght MediaResponse":
+        """ returns julia. arguments: ReC ImC [x0 y0 x1 y1]"""
+        
+        failcode = str(time.time())[-6:]
+        
+        try:
+            ReC, ImC = data['text'].split()[2:4]
+        except ValueError as e:
+            ReC, ImC = -1.24,0.075
+        try:
+            c = complex(float(ReC), float(ImC))
+        except ValueError as e:
+            return "can't parse {} and/or {} as floats. [{}]".format(ReC,ImC,failcode)
+        
+        try:
+            grids = data['text'].split()[4:8]
+        except ValueError as e:
+            grids = [-0.3,-0.3,0.3,0.3]
+        if len(grids) != 4:
+            grids = [-0.3,-0.3,0.3,0.3]
+        
+        try:
+            x0,y0,x1,y1 = map(float, grids)
+        except ValueError as e:
+            return "can't parse {} as floats. [{}]".format(grids,failcode)
+        
+        x0,x1 = min(x0,x1), max(x0,x1)
+        y0,y1 = min(y0,y1), max(y0,y1)
+        
+        # phew!
+        time0 = time.time()
+        imgf = frct.julia(c=c, upperleft=(x0,y0), bottomright=(x1,y1))
+        time1 = time.time()
+        
+        return_text = dedent(
+            """
+            julia set at c = {}+{}i, from ({},{}) to ({},{}).
+            Took {:2.3f} secs to render.
+            """).format(
+                c.real, c.imag, x0, y0, x1, y1, time1-time0
+            )
+        
+        return MediaResponse(return_text, imgf)
 
 class MediaResponse(object):
     def __init__(self, text:str, media:'BytesIO'):
