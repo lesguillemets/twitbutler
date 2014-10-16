@@ -3,5 +3,6 @@ __all__ = [
     'consts',
     'weather',
     'yahoo_rain',
-    'yahoo_geo'
+    'yahoo_geo',
+    'colorpics',
 ]

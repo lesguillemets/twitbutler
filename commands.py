@@ -4,6 +4,7 @@ from textwrap import dedent
 import modules.weather as wt
 import modules.yahoo_rain as yahoo_rain
 import modules.primes as primes
+import modules.colorpics as colorpics
 
 
 class Commands(object):
@@ -151,6 +152,34 @@ class Commands(object):
         ]
         return "*".join(return_str)
 
+class MediaCommands(object):
+    
+    @staticmethod
+    def rgb(data: "twdata") -> "Left String, Right MediaResponse":
+        """returns a small image filled with the specified rgb."""
+        try:
+            r,g,b = data['text'].split()[2:5]
+        except ValueError as e:
+            return "Specify r,g and b separated with spaces."
+        try:
+            r,g,b = map(int,(r,g,b))
+        except ValueError as e:
+            return "Can only accept integers."
+        try:
+            assert all(0 <= c <= 255 for c in (r,g,b))
+        except AssertionError as e:
+            return "All values must be between 0 and 255."
+        # phew. That was a lot!
+        imgf = colorpics.rgb_image(r,g,b)
+        return MediaResponse(
+            "color : rgb {},{},{}".format(r,g,b),
+            imgf
+        )
+
+class MediaResponse(object):
+    def __init__(self, text:str, media:'BytesIO'):
+        self.text = text
+        self.media = media
 
 def trim(docstring):
     if docstring is None:

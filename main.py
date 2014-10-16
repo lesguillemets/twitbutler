@@ -10,6 +10,8 @@
 from twython import Twython
 from twython import TwythonStreamer
 from commands import Commands
+from commands import MediaCommands
+from commands import MediaResponse
 import time
 import os
 
@@ -74,12 +76,22 @@ class TwitButler(object):
         except Exception as e:
             self.debug_log_tweet(e)
             return
-        if response is not None:
+        if isinstance(response,str):
+            # respond with string only!
             self.api.update_status(
                 status = (
                     '@' + data['user']['screen_name'] +
                     " " + response
                 ),
+                in_reply_to_status_id = data['id']
+            )
+        elif isinstance(response, MediaResponse):
+            self.api.update_status_with_media(
+                status = (
+                    '@' + data['user']['screen_name'] +
+                    " " + response.text
+                ),
+                media = response.media,
                 in_reply_to_status_id = data['id']
             )
     
@@ -115,8 +127,15 @@ def parse_command(data):
             # Well, although it's unlikely to cause any problems...
             return None
         if hasattr(Commands, command):
+            # commands that returns string
             log('hasattr!')
             return (getattr(Commands,command)(data))
+        
+        elif hasattr(MediaCommands, command):
+            # commands that uses media
+            log('media!')
+            return (getattr(MediaCommands,command)(data))
+        
         else:
             # command seems to be given,
             # but not recognized
