@@ -123,6 +123,10 @@ class Commands(object):
                 res = trim(getattr(Commands,cmd).__doc__)
             except AttributeError as e:
                 res = "Command Not Found."
+            try:
+                res = trim(getattr(MediaCommands,cmd).__doc__)
+            except AttributeError as e:
+                res = "Command Not Found."
             
             return res[:120]
     
