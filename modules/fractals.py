@@ -5,7 +5,7 @@ import PIL.Image as Image
 from io import BytesIO
 import colorsys
 
-def julia(sizex:int=200, sizey:int=200,
+def julia(sizex:int=300, sizey:int=300,
           c : complex = -1.24 + 0.075j,
           upperleft : (float,float) = (-0.3,-0.3),
           bottomright:(float,float) = (0.3,0.3),
