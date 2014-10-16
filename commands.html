@@ -102,6 +102,29 @@
     <dd class="descr">
       与えられた rgb 値に対応する色見本を png 画像で返します．
     </dd>
+    
+    <dt id="julia">julia</dt>
+    <dd class="command">!julia [ReC ImC [x0 y0 x1 y1]]</dd>
+    <dd class="arguments">
+      ReC, ImC : c = ReC+ i*ImC で Julia 集合を計算します．[optional]<br />
+      x0, y0, x1, y1 : (x0,y0) [左下] から (x1,y1) [右上] までの画像を表示します．[optional]
+      x0 &lt; x1, y0 &lt; y1 が必要です．
+    </dd>
+    <dd class="response">
+      入力情報とそれを元に計算された Julia 集合を表現した画像
+    </dd>
+    <dd class="descr">
+      <a href="https://en.wikipedia.org/wiki/Julia_set">Julia 集合</a>を作ります．ReC, ImC が省略された場合 c = -1.24 + 0.075i,
+      描画するのはデフォルトでは (-0.3,-0.3) から (0.3,0.3) までです．<br />
+      サンプルの入力は次のような感じ
+      <ul>
+        <li><code>@twitbutler !julia</code> : デフォルト値で計算</li>
+        <li><code>@twitbutler !julia -1.36 0.035</code> : c = -1.36 + 0.035i で計算</li>
+        <li><code>@twitbutler !julia -1.36 0.035 0 0 0.3 0.3</code> : 左下(0,0), 右上(0.3,0.3) で囲われた正方形領域を描画</li>
+      </ul>
+      現在のところ画像は 300px*300px(指定された領域の縦横比に関わらず), |z| が 2 を超えたところで発散すると見なし，
+      各画素について 300 step 計算して発散しなかった場合には収束するとみなしています．だいぶ粗い．
+    </dd>
   </dl>
 </body>
 </html>
