@@ -6,6 +6,7 @@ import modules.yahoo_rain as yahoo_rain
 import modules.primes as primes
 import modules.colorpics as colorpics
 import modules.fractals as frct
+from responses import *
 
 
 class Commands(object):
@@ -156,6 +157,10 @@ class Commands(object):
             "{}^{}".format(p,i) for (p,i) in factors
         ]
         return "*".join(return_str)
+    
+    @staticmethod
+    def delete(data):
+        return DeleteResponse(data)
 
 class MediaCommands(object):
     
@@ -225,11 +230,6 @@ class MediaCommands(object):
             )
         
         return MediaResponse(return_text, imgf)
-
-class MediaResponse(object):
-    def __init__(self, text:str, media:'BytesIO'):
-        self.text = text
-        self.media = media
 
 def trim(docstring):
     if docstring is None:

@@ -11,7 +11,7 @@ from twython import Twython
 from twython import TwythonStreamer
 from commands import Commands
 from commands import MediaCommands
-from commands import MediaResponse
+from responses import *
 import time
 import os
 
@@ -33,7 +33,7 @@ except ImportError as e:
         }
 
 
-verb = False
+verb = True
 cmd_prefix = "!"
 
 if verb:
@@ -57,6 +57,7 @@ class TwitButler(object):
         self.streamer.on_success = self.on_stream_success
         self.streamer.on_error = self.on_error
         self.me = me
+        self.app_name = "twitbutler"
         self.logging = logging
     
     def on_stream_success(self,data):
@@ -94,6 +95,32 @@ class TwitButler(object):
                 media = response.media,
                 in_reply_to_status_id = data['id']
             )
+        elif isinstance(response, DeleteResponse):
+            # FIXME : here lies dirty work.
+            reason = ""
+            if 'in_reply_to_status_id' in data:
+                orig_id = response.data['in_reply_to_status_id']
+                try:
+                    orig_tw = self.api.show_status(id=orig_id)
+                except Exception as e:
+                    ftext = "Can't get the original tweet : " + str(e)
+                else:
+                    if self.is_qualified_deletion_request(orig_tw, data):
+                        try:
+                            self.api.destroy_status(id=orig_tw['id'])
+                            return
+                        except Exception as e:
+                            ftext = "Counldn't destroy it : " + str(e)
+                    else:
+                        ftext = "Can't delete that."
+            else:
+                ftext = "Specify tweet."
+            self.api.update_status(
+                status = (
+                    '@' + data['user']['screen_name'] + ' ' + ftext
+                ),
+                in_reply_to_status_id = data['id']
+            )
     
     def on_error(self,status_code,data):
         log(status_code)
@@ -109,6 +136,22 @@ class TwitButler(object):
             )
         else:
             return
+    
+    def is_qualified_deletion_request(self,tw_del, tw_req):
+        if self.app_name not in tw_del['source']:
+            # if the tweet being requested for deletion
+            # is from twitbutler,
+            # TODO : better checking
+            return False
+        if 'in_reply_to_screen_name' not in tw_del:
+            # and is in response to something,
+            return False
+        if (tw_del['in_reply_to_screen_name'] !=
+                tw_req['user']['screen_name']):
+            # aand user requesting for delete is the original commander.
+            return False
+        
+        return True
 
 def parse_command(data):
     text = data['text']
