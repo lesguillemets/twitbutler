@@ -118,6 +118,7 @@ class TwitButler(object):
             self.api.update_status(
                 status = (
                     '@' + data['user']['screen_name'] + ' ' + ftext
+                    + ' [{}]'.format(str(time.time())[-6:])
                 ),
                 in_reply_to_status_id = data['id']
             )
