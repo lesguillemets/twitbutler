@@ -8,6 +8,11 @@ import modules.colorpics as colorpics
 import modules.fractals as frct
 from responses import *
 
+def appendtimestamp(f):
+    def g(*args,**kwargs):
+        return f(*args,**kwargs) + " [{}]".format(
+            str(time.time())[-6:])
+    return g
 
 class Commands(object):
     prime_handler = None
@@ -32,6 +37,7 @@ class Commands(object):
         )
     
     @staticmethod
+    @appendtimestamp
     def weather(data):
         """
         `!weather cityname`
@@ -56,6 +62,7 @@ class Commands(object):
             return "Error fetching data."
     
     @staticmethod
+    @appendtimestamp
     def rain(data):
         """
         `!rain loc [.]`
@@ -79,16 +86,14 @@ class Commands(object):
         
         if raindata is None:
             return (
-                "Something went wrong and couldn't get rain info. Sorry " +
-                "[{}]".format(str(int(time.time()))[-5:])
+                "Something went wrong and couldn't get rain info. Sorry. "
             )
         
         # ok, everything went fine.
-        return "{} 現在の10分間降雨量: {}mm ({}) [{}]".format(
+        return "{} 現在の10分間降雨量: {}mm ({})".format(
             raindata[1]['Date'][-4:],
             raindata[1]['Rainfall'],
             raindata[0]['Name'],
-            str(int(time.time()))[-5:],
         )
     
     @staticmethod
@@ -244,3 +249,4 @@ def trim(docstring):
     return ' '.join(
         map(lambda x: x.lstrip() or '\n' , doclines)
     )
+

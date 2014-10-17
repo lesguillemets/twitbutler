@@ -33,7 +33,7 @@ except ImportError as e:
         }
 
 
-verb = True
+verb = False
 cmd_prefix = "!"
 
 if verb:
@@ -131,7 +131,8 @@ class TwitButler(object):
             self.api.update_status(
                 status = (
                     '@' + data['user']['screen_name'] +
-                    " Exception: " + txt
+                    " Exception: " + txt +
+                    " [{}]".format(str(time.time())[:6])
                 ),
                 in_reply_to_status_id = data['id']
             )
