@@ -5,6 +5,10 @@ dl.commands>dt{
     margin-top:20px;
 }
 
+dt:target{
+    background: #eeeeaa;
+}
+
 dd {
     margin-top:4px;
     margin-bottom:4px;
