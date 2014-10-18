@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="./css/commands.css">
 </head>
 <body>
-  Twitbutler は現在以下のコマンドに反応します．
+  Twitbutler は現在以下のコマンドに反応します．特記無い場合は引数の区切りはスペースで，余分な引数は無視されます．
   <dl class="commands">
     <dt id="ping">ping</dt>
     <dd class="command">!ping</dd>
@@ -70,8 +70,8 @@
       例えば「京都府京都市」，「京都」，「左京区」などの指定が可能です．
       解釈できない文字列を渡された場合はその旨返答します．
       <br />
-      また，ユーザ側の連投規制を回避できるよう，
-      末尾の任意個の <code>.</code> (半角ピリオド）は無視されます．
+      また，このコマンドは <code>!rain</code> より後の文字列をすべて Yahoo! ジオコーダに渡します（半角スペースで切りません）が，
+      ユーザ側の連投規制を回避できるよう，末尾の任意個の <code>.</code> (半角ピリオド）は無視されます．
     </dd>
     <dd class="power">
       <a href="http://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/geocoder.html">Yahoo! ジオコーダAPI</a>,
