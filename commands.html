@@ -125,6 +125,21 @@
       現在のところ画像は 300px*300px(指定された領域の縦横比に関わらず), |z| が 2 を超えたところで発散すると見なし，
       各画素について 300 step 計算して発散しなかった場合には収束するとみなしています．だいぶ粗い．
     </dd>
+    
+    <dt id="delete">delete</dt>
+    <dd class="command">!delete</dd>
+    <dd class="arguments">なし</dd>
+    <dd class="response">なし（可能な場合に当該 tweet の削除）</dd>
+    <dd class="descr">
+      twitbutler による tweet に対して reply の形で `!delete` を飛ばすと，
+      reply を飛ばした元の tweet を削除します．この時以下の条件が必要です:
+      <ul>
+        <li>指定した tweet が twitbutler によるものであること</li>
+        <li>指定した tweet の元になるコマンドを打った人が， `!delete` している人と同一であること</li>
+      </ul>
+      両者が満たされた場合には該当の tweet を削除し，条件が満たない時にはその旨返答します．<br />
+      <code>!rain</code> などのコマンドを使う際，履歴に残したくない場合に併用することを想定しています．<br />
+    </dd>
   </dl>
 </body>
 </html>
