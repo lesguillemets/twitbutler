@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 import time
 from textwrap import dedent
+from io import BytesIO
 import modules.weather as wt
 import modules.yahoo_rain as yahoo_rain
 import modules.primes as primes
 import modules.colorpics as colorpics
 import modules.fractals as frct
+import modules.imgloader as imgloader
+import modules.imgeffector as imgeffector
 from responses import *
 
 def appendtimestamp(f):
@@ -235,6 +238,40 @@ class MediaCommands(object):
             )
         
         return MediaResponse(return_text, imgf)
+    
+    @staticmethod
+    def monochrome(data: "twdata") -> "Left String, Right MediaResponse":
+        """
+        returns monochrome version of your photo.
+        You can specify weights for rgb.
+        """
+        
+        failcode = str(time.time())[-5:]
+        
+        try:
+            target_m = data['entities']['media'][0]
+        except (IndexError, KeyError) as e:
+            return "Give me an image !"
+        
+        try:
+            img = imgloader.tw_load_img(target_m['media_url'], maxsize=1000)
+        except imgloader.CantHandleException as e:
+            return "{} [{}]".format(e,failcode)
+        except imgloader.CantURLOpenException as e:
+            return "{} [{}]".format(e.failcode)
+        except imgloader.CantOpenException as e:
+            return "{} [{}]".format(e.failcode)
+        ext = img.format or 'png'
+        
+        imgf = BytesIO()
+        time0 = time.time()
+        mono_img = imgeffector.to_monochrome(img)
+        time1 = time.time()
+        mono_img.save(imgf, format=ext)
+        imgf.seek(0)
+        text = "took {:2.3f} secs to render.".format(time1-time0)
+        
+        return MediaResponse(text,imgf)
 
 def trim(docstring):
     if docstring is None:

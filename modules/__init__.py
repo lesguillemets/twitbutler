@@ -6,4 +6,6 @@ __all__ = [
     'yahoo_geo',
     'colorpics',
     'fractals',
+    'imgloader',
+    'imgeffector',
 ]
