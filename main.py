@@ -14,6 +14,7 @@ from commands import MediaCommands
 from responses import *
 import time
 import os
+import traceback
 
 try:
     import consts
@@ -75,7 +76,8 @@ class TwitButler(object):
         try:
             response = parse_command(data)
         except Exception as e:
-            self.debug_log_tweet(e)
+            log(traceback.format_exc())
+            self.debug_log_tweet(data,format(e.args))
             return
         if isinstance(response,str):
             # respond with string only!
@@ -131,8 +133,7 @@ class TwitButler(object):
             self.api.update_status(
                 status = (
                     '@' + data['user']['screen_name'] +
-                    " Exception: " + txt +
-                    " [{}]".format(str(time.time())[:6])
+                    " Exception: {} [{}]".format(txt, str(time.time())[:6])
                 ),
                 in_reply_to_status_id = data['id']
             )
