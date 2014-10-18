@@ -269,7 +269,7 @@ class MediaCommands(object):
         time1 = time.time()
         mono_img.save(imgf, format=ext)
         imgf.seek(0)
-        text = "took {:2.3f} secs to render.".format(time1-time0)
+        text = "took {:2.3f} secs to process.".format(time1-time0)
         
         return MediaResponse(text,imgf)
 
