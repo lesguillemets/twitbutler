@@ -83,7 +83,7 @@ class Commands(object):
         try:
             raindata = yahoo_rain.rainfall(cityname)
         except ValueError as e:
-            return "Location {} not found. Try different query.".format(
+            return "Location {} not found. Try a different query.".format(
                 cityname
             )
         
@@ -195,7 +195,7 @@ class MediaCommands(object):
         )
     
     @staticmethod
-    def julia(data: "twdata") -> "Left String, RIght MediaResponse":
+    def julia(data: "twdata") -> "Left String, Right MediaResponse":
         """ returns julia. arguments: ReC ImC [x0 y0 x1 y1]"""
         
         failcode = str(time.time())[-6:]
