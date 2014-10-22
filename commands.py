@@ -258,9 +258,9 @@ class MediaCommands(object):
         except imgloader.CantHandleException as e:
             return "{} [{}]".format(e,failcode)
         except imgloader.CantURLOpenException as e:
-            return "{} [{}]".format(e.failcode)
+            return "{} [{}]".format(e,failcode)
         except imgloader.CantOpenException as e:
-            return "{} [{}]".format(e.failcode)
+            return "{} [{}]".format(e,failcode)
         ext = img.format or 'png'
         
         imgf = BytesIO()
