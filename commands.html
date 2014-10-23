@@ -140,6 +140,22 @@
       両者が満たされた場合には該当の tweet を削除し，条件が満たない時にはその旨返答します．<br />
       <code>!rain</code> などのコマンドを使う際，履歴に残したくない場合に併用することを想定しています．<br />
     </dd>
+    
+    <dt id="monochrome">monochrome</dd>
+    <dd class="command">!monochrome</dd>
+    <dd class="arguments">なし</dd>
+    <dd class="response">白黒に加工した画像</dd>
+    <dd class="descr">
+      コマンドと共に渡された画像を白黒にして返します．速度の関係から長辺 1000 px 以上の画像はリサイズされます．
+    </dd>
+    
+    <dt id="charinfo">charinfo</dd>
+    <dd class="command">!charinfo (char)</dd>
+    <dd class="arguments">情報を返すべき文字</dd>
+    <dd class="response">a (U+0061) : LATIN SMALL LETTER A. cat: Letter, Lowercase</dd>
+    <dd class="descr">
+      <code>!charinfo</code> の後に渡された最初の文字についての情報（文字，符号位置，Unicode で定義された名前とカテゴリ）を返します．
+    </dd>
   </dl>
 </body>
 </html>
