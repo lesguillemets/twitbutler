@@ -9,6 +9,7 @@ import modules.colorpics as colorpics
 import modules.fractals as frct
 import modules.imgloader as imgloader
 import modules.imgeffector as imgeffector
+import modules.characterise as characterise
 from responses import *
 
 def appendtimestamp(f):
@@ -167,8 +168,22 @@ class Commands(object):
         return "*".join(return_str)
     
     @staticmethod
+    def charinfo(data):
+        """Returns unicode information about the first character given."""
+        try:
+            char = data['text'].split()[2][0]
+        except IndexError as e:
+            return "No character specified."
+        
+        chardata = characterise.char_data(char)
+        chardata['hex'] = chardata['hex'][2:].rjust(4,'0')
+        
+        return "{char} (U+{hex}) : {name}. cat: {cat}".format(**chardata)
+    
+    @staticmethod
     def delete(data):
         return DeleteResponse(data)
+    
 
 class MediaCommands(object):
     
