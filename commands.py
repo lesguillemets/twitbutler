@@ -301,4 +301,3 @@ def trim(docstring):
     return ' '.join(
         map(lambda x: x.lstrip() or '\n' , doclines)
     )
-
