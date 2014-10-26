@@ -176,7 +176,7 @@ class Commands(object):
             return "No character specified."
         
         chardata = characterise.char_data(char)
-        chardata['hex'] = chardata['hex'][2:].rjust(4,'0')
+        chardata['hex'] = chardata['hex'][2:].rjust(4,'0').upper()
         
         return "{char} (U+{hex}) : {name}. cat: {cat}".format(**chardata)
     
