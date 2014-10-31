@@ -181,6 +181,28 @@ class Commands(object):
         return "{char} (U+{hex}) : {name}. cat: {cat}".format(**chardata)
     
     @staticmethod
+    def emoji(data):
+        """returns the emoji of the given name."""
+        try:
+            name = data['text'].split()[2].strip(':')
+        except IndexError as e:
+            return "No code specified."
+        
+        try:
+            emoji = characterise.emoji_code(name)
+        except KeyError as e:
+            return (
+                "Emoji with that code ({}) is not found.".format(name)
+            )
+        
+        emojidata = characterise.char_data(emoji)
+        emojidata['hex'] = emojidata['hex'][2:].rjust(4,'0').upper()
+        
+        return "{emoji} (U+{hex}/{name})".format(
+            emoji=emoji, hex=emojidata['hex'], name=emojidata['name']
+        )
+    
+    @staticmethod
     def delete(data):
         return DeleteResponse(data)
     

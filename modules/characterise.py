@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import unicodedata as unic
+from .emojicode import emoji_codes
 
 def char_data(char : str) -> "{data}":
     if len(char) != 1:
@@ -10,6 +11,13 @@ def char_data(char : str) -> "{data}":
         'name' : unic.name(char),
         'cat' : unic_cats[unic.category(char)],
     }
+
+def emoji_code(code : str) -> str:
+    try:
+        return emoji_codes[code.lower()]
+    except KeyError as e:
+        raise ValueError("code not found.")
+
 
 unic_cats = {
     "Cc" : "Other, Control",
