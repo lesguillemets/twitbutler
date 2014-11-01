@@ -190,7 +190,7 @@ class Commands(object):
         
         try:
             emoji = characterise.emoji_code(name)
-        except KeyError as e:
+        except ValueError as e:
             return (
                 "Emoji with that code ({}) is not found.".format(name)
             )
