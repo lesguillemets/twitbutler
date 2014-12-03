@@ -18,6 +18,11 @@ def emoji_code(code : str) -> str:
     except KeyError as e:
         raise ValueError("code not found.")
 
+def emoji_code_fuzzy(keyword : str) -> filter :
+    keyword = keyword.lower()
+    return filter(lambda k: keyword in k, emoji_codes)
+
+
 
 unic_cats = {
     "Cc" : "Other, Control",
@@ -65,3 +70,4 @@ if __name__ == "__main__":
     print(char_data('"'))
     print(char_data('ɞ'))
     print(char_data('🎼'))
+    print(list(emoji_code_fuzzy('smil')))

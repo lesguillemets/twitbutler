@@ -203,6 +203,20 @@ class Commands(object):
         )
     
     @staticmethod
+    def emoji_fuzzy(data):
+        """returns emoji's that contain the given name."""
+        try:
+            keyword = data['text'].split()[2].strip(':')
+        except IndexError as e:
+            return "No keyword specified. Usage: !emoji_fuzzy keyword_without_space"
+        
+        emoji_codes = characterise.emoji_code_fuzzy(keyword)
+        emojis = "".join(map(characterise.emoji_code, emoji_codes))
+        return "{query} : {emojis}".format(
+            query=keyword, emojis=emojis
+        )[:120]
+    
+    @staticmethod
     def delete(data):
         return DeleteResponse(data)
     
