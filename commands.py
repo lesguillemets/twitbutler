@@ -207,13 +207,16 @@ class Commands(object):
         """returns emoji's that contain the given name."""
         try:
             keyword = data['text'].split()[2].strip(':')
+            greps = data['text'].split()[3:]
         except IndexError as e:
             return "No keyword specified. Usage: !emoji_fuzzy keyword_without_space"
         
         emoji_codes = characterise.emoji_code_fuzzy(keyword)
+        for grep in greps:
+            emoji_codes = filter(lambda code: grep in code, emoji_codes)
         emojis = "".join(map(characterise.emoji_code, emoji_codes)) or "Not found."
         return "{query} : {emojis}".format(
-            query=keyword, emojis=emojis
+            query=keyword+('|'.join(greps)), emojis=emojis
         )[:120]
     
     @staticmethod
