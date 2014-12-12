@@ -211,7 +211,7 @@ class Commands(object):
             return "No keyword specified. Usage: !emoji_fuzzy keyword_without_space"
         
         emoji_codes = characterise.emoji_code_fuzzy(keyword)
-        emojis = "".join(map(characterise.emoji_code, emoji_codes))
+        emojis = "".join(map(characterise.emoji_code, emoji_codes)) or "Not found."
         return "{query} : {emojis}".format(
             query=keyword, emojis=emojis
         )[:120]
