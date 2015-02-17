@@ -126,6 +126,8 @@ class Commands(object):
             elif opt.startswith('sex:'):
                 options['sex'] = opt.split(':')[1]
         pron = frv.pronunciation(word,**options)
+        if pron.data is None:
+            return "No hits for {}. [{}]".format(word,str(time.time())[-6:])
         return dedent(
             """
             “{word}” in {lang} by {user} in {country}
