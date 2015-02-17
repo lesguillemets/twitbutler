@@ -10,6 +10,7 @@ import modules.fractals as frct
 import modules.imgloader as imgloader
 import modules.imgeffector as imgeffector
 import modules.characterise as characterise
+import modules.forvo as frv
 from responses import *
 
 def appendtimestamp(f):
@@ -99,6 +100,45 @@ class Commands(object):
             raindata[1]['Rainfall'],
             raindata[0]['Name'],
         )
+    
+    @staticmethod
+    def forvo(data):
+        """
+        `!forvo WORD [OPTs.]`
+        {lang:en country:gbr}
+        returns a pronounced mp3 for a word from forvo.com.
+        """
+        # !forvo orange lang:en country:gbr
+        try:
+            d = data['text'].strip('.').split()
+            word = d[2]
+            opts = d[3:]
+        except IndexError as e:
+            return "word unspecified."
+        options = {}
+        for opt in opts:
+            opt = opt.lower()
+            # FIXME : DRY
+            if opt.startswith('lang:'):
+                options['language'] = opt.split(':')[1]
+            elif opt.startswith('country:'):
+                options['country'] = opt.split(':')[1].upper()
+            elif opt.startswith('sex:'):
+                options['sex'] = opt.split(':')[1]
+        pron = frv.pronunciation(word,**options)
+        return dedent(
+            """
+            {word} in {lang} by {user} in {country}
+            {lnk}{rest}
+            """
+        ).format(
+            word = word,
+            lang = pron.data['langname'],
+            user = pron.data['username'],
+            country = pron.data['country'],
+            lnk = pron.data['pathmp3'],
+            rest = "\noptions ignored" if pron.restricted else ""
+        ).strip()
     
     @staticmethod
     def help(data):

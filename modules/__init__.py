@@ -9,4 +9,5 @@ __all__ = [
     'imgloader',
     'imgeffector',
     'characterise',
+    'forvo',
 ]
