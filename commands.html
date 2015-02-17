@@ -179,6 +179,43 @@
     <dd class="descr">
       受け取った文字列を emoji code に含む絵文字を並べて返します．
     </dd>
+    
+    <dt id="forvo">forvo</dd>
+    <dd class="command">!forvo (word) [options]</dd>
+    <dd class="arguments">
+      <ul>
+        <li>word : 検索する単語．</li>
+        <li>options: 以下の3種があり，スペースで区切って順不同，case-insensitive で指定できます．
+          いずれも optional.
+          <ol>
+            <li><code>lang:xx</code>&nbsp; 言語の指定．<code>xx</code>には
+              <a href="http://www.forvo.com/languages-codes/">2文字の言語コード</a>
+              が入ります．
+            </li>
+            <li><code>country:XXX</code>&nbsp;録音者の国の指定．<code>XXX</code>には
+              <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1 による 3桁の国コード</a>
+              が入ります．
+            </li>
+            <li><code>sex:*</code>&nbsp;男声/女声の指定．* は f または m.</li>
+          </ol>
+        </li>
+      </ul>
+    </dd>
+    <dd class="response">単語，言語，投稿者，国，発音された .mp3 へのリンク（2時間有効）</dd>
+    <dd class="descr">
+      forvo に投稿された音声から単語を検索し，条件に合うものの中で最も高い評価が付いているものへのリンクを返します．
+      条件を含めて検索した結果が0件の時は，条件を無視して（単語の指定のみで）検索を行い，結果が得られればそれを返します．
+      このときレスポンスに option が無視された旨が含まれます．
+      例:
+      <ul>
+        <li><code>!forvo みかん</code></li>
+        <li><code>!forvo earth lang:en country:gbr</code></li>
+      </ul>
+      目下 500 requests/day まで．
+    </dd>
+    <dd class="power">
+      <a href="http://www.forvo.com/">Pronunciations by Forvo</a>
+    </dd>
   </dl>
 </body>
 </html>
