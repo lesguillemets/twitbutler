@@ -129,7 +129,7 @@ class Commands(object):
         return dedent(
             """
             {word} in {lang} by {user} in {country}
-            {lnk}{rest}
+            {lnk}{rest} | pron by forvo
             """
         ).format(
             word = word,
@@ -137,7 +137,7 @@ class Commands(object):
             user = pron.data['username'],
             country = pron.data['country'],
             lnk = pron.data['pathmp3'],
-            rest = "\noptions ignored" if pron.restricted else ""
+            rest = "\nOptions ignored. " if pron.restricted else ""
         ).strip()
     
     @staticmethod
