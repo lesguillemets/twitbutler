@@ -128,7 +128,7 @@ class Commands(object):
         pron = frv.pronunciation(word,**options)
         return dedent(
             """
-            {word} in {lang} by {user} in {country}
+            “{word}” in {lang} by {user} in {country}
             {lnk}{rest} | pron by forvo
             """
         ).format(
