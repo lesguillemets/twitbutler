@@ -165,6 +165,20 @@
       受け取った emoji code に対応する絵文字があれば返します．
       Emoji code は <a href="http://www.emoji-cheat-sheet.com/">emoji cheat sheet</a> あたりをご覧ください．
     </dd>
+    
+    <dt id="emoji_fuzzy">emoji_fuzzy</dt>
+    <dd class="command">!emoji_fuzzy (query) [filters]</dd>
+    <dd class="arguments">
+      <ul>
+        <li>query: クエリ．スペースを含まない文字列（半角英数字）．</li>
+        <li>filters: optional. スペースで区切って文字列を並べることで，それらすべてを code に含む絵文字のみを返します．
+          <code>grep</code> のイメージ．</li>
+      </ul>
+    </dd>
+    <dd class="response">絵文字の並び</dd>
+    <dd class="descr">
+      受け取った文字列を emoji code に含む絵文字を並べて返します．
+    </dd>
   </dl>
 </body>
 </html>
