@@ -2,6 +2,7 @@
 import time
 from textwrap import dedent
 from io import BytesIO
+from functools import wraps
 import modules.weather as wt
 import modules.yahoo_rain as yahoo_rain
 import modules.primes as primes
@@ -14,6 +15,7 @@ import modules.forvo as frv
 from responses import *
 
 def appendtimestamp(f):
+    @wraps(f)
     def g(*args,**kwargs):
         return f(*args,**kwargs) + " [{}]".format(
             str(time.time())[-6:])
@@ -168,17 +170,19 @@ class Commands(object):
         else:
             if cmd.startswith('__'):
                 # __le__, etc. won't be nice.
-                return "Command Invalid."
+                # FIXME :: DRY
+                return "Command Invalid. [{}]".format(str(time.time())[-6:])
             
             # now consider 'real' commands.
-            try:
-                res = trim(getattr(Commands,cmd).__doc__)
-            except AttributeError as e:
-                res = "Command Not Found."
-            try:
-                res = trim(getattr(MediaCommands,cmd).__doc__)
-            except AttributeError as e:
-                res = "Command Not Found."
+            fun = getattr(Commands,cmd,None) or getattr(MediaCommands,cmd,None)
+            if fun is None:
+                res = "Command `{}` Not Found. [{}]".format(cmd, str(time.time())[-6:])
+            else:
+                res = (
+                    trim(fun.__doc__) or
+                    "No help available for `{}`. [{}]".format(
+                        cmd, str(time.time())[-6:])
+                )
             
             return res[:120]
     
