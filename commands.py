@@ -12,6 +12,7 @@ import modules.imgloader as imgloader
 import modules.imgeffector as imgeffector
 import modules.characterise as characterise
 import modules.forvo as frv
+from modules.yo import yo as say_yo
 from responses import *
 
 def appendtimestamp(f):
@@ -143,6 +144,14 @@ class Commands(object):
             lnk = pron.data['pathmp3'],
             rest = "\nOptions ignored. " if pron.restricted else ""
         ).strip()
+    
+    @staticmethod
+    @appendtimestamp
+    def yo(data):
+        try:
+            return say_yo()
+        except Exception as e:
+            return str(e)
     
     @staticmethod
     def help(data):
