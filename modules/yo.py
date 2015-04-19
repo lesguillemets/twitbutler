@@ -10,7 +10,7 @@ YOURL = "https://api.justyo.co/yo/"
 try:
     from .consts import yo_token, yo_username
 except ImportError as e:
-    yo_key = os.environ['yo_token']
+    yo_token = os.environ['yo_token']
     yo_username = os.environ['yo_username']
 
 def yo(*args,**kwargs):
