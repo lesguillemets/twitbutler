@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import time
+import re
 from textwrap import dedent
 from io import BytesIO
 from functools import wraps
@@ -149,6 +150,7 @@ class Commands(object):
     @appendtimestamp
     def yo(data):
         profile_url = data['user']['profile_image_url']
+        profile_url = re.sub(r'_normal(?=\.[^.]+$)', r'', profile_url)
         try:
             if profile_url :
                 return say_yo(link=profile_url)
