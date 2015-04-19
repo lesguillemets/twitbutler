@@ -62,8 +62,7 @@ class TwitButler(object):
         self.logging = logging
     
     def on_stream_success(self,data):
-        if ('in_reply_to_screen_name' in data and
-                data['in_reply_to_screen_name'] == self.me):
+        if (data.get('in_reply_to_screen_name') == self.me):
             try:
                 log("____")
                 log(data['text'])
