@@ -148,8 +148,12 @@ class Commands(object):
     @staticmethod
     @appendtimestamp
     def yo(data):
+        profile_url = data['user']['profile_image_url']
         try:
-            return say_yo()
+            if profile_url :
+                return say_yo(link=profile_url)
+            else:
+                return say_yo()
         except Exception as e:
             return str(e)
     
